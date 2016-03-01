@@ -1,7 +1,8 @@
 
     
-    clc
+clc
 clear
+close all
 
 % Constant (void)
 u = 1.25663706*1e-6;
@@ -9,13 +10,13 @@ eps = 8.8541878176e-12;
 c = 299792458;
 f = 2.4*1e9;
 lambda = c/f;
-om = 1; %%% A definir becuz bs 
-o = 1; %%% corriger bs fouad becuz it is bs hihihi
+om = 0; %%% A definir becuz bs 
+o = 0; %%% corriger bs fouad becuz it is bs hihihi
 % Option
 deltax = lambda/10;
 deltay = lambda/10;
 deltat = deltax/c/10;
-size = 100;
+size = 50;
 x=size;
 y=x;
 c1 = (1-(om*deltat)/(2*u))/(1+(om*deltat)/(2*u));
@@ -34,21 +35,31 @@ ez = zeros(x,y);
 % ez(4,2) = 2;
 %%
 
-for t=1:size
+for t=1:10000
     t
-    ez(1,1) = cos(2*pi*f*deltat*(t-1));
+    if(t<100)
+        ez(size/2,size/2) = cos(2*pi*f*deltat*(t-1));
+%     else
+%         ez(size/2,size/2) = 0;
+    end
     for x=1:size-2
-            x;
         for y=1:size-2
-            y;
             hx(x,y)=c1*hx(x,y)-c2*(ez(x,y+1)-ez(x,y));
             hy(x,y)=c1*hy(x,y)+c3*(ez(x+1,y)-ez(x,y));
-            ez(x+1,y+1)=c4*ez(x+1,y+1)+c5*((deltat/(eps*deltax))*(hy(x+2,y+1)-hy(x+1,y+1)))-c5*((deltat/(eps*deltay))*(hx(x+1,y+2)-hx(x+1,y+1)));
         end
     end
-    surf(1:size,1:size,hx)
+    for x=2:size-1
+        for y=2:size-1
+%             if(x~=size/2 && y~=size/2)
+                ez(x,y)=c4*ez(x,y)+c5*((deltat/(eps*deltax))*(hy(x,y)-hy(x-1,y)))-c5*((deltat/(eps*deltay))*(hx(x,y)-hx(x,y-1)));
+%             end
+        end
+    end
+%     imagesc([1:size]*deltax,[1:size]*deltay,ez)
+    surf([1:size]*deltax,[1:size]*deltay,ez)
+%     view(2);
     drawnow
-    hold on;
+%     hold on;
 end
 
 
