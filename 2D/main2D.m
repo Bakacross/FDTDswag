@@ -41,7 +41,7 @@ ez = zeros(x,y);
 %%
 
 for t=1:10000
-    t
+    t;
     if(t<100)
         ez(size/2,size/2) = cos(2*pi*f*deltat*(t-1));
         %     else
@@ -75,10 +75,13 @@ for t=1:10000
 %     ez(10:30,20)=0;
 %     ez(20,10:30)=0;
     
-    %     imagesc([1:size]*deltax,[1:size]*deltay,ez)
+      imagesc([1:size]*deltax,[1:size]*deltay,ez)
+      title(['Time elapsed :', num2str((t-1)*deltat)])
+      colorbar
+      caxis([-0.5, 0.5])
     
-    surf([1:size]*deltax,[1:size]*deltay,ez)
-    zlim([-1 1]);
+%     surf([1:size]*deltax,[1:size]*deltay,ez)
+%     zlim([-1 1]);
 %     view(2);
     drawnow
     %     hold on;
