@@ -15,7 +15,7 @@ lambda = c/f;
 deltax = lambda/10;
 deltay = lambda/10;
 deltat = deltax/c/10;
-size = 50;
+size = 10;
 x=size;
 y=x;
 
@@ -89,7 +89,7 @@ for t=1:10000
             end
         end
     end
-    ez(size/2,size/2) = ez(size/2,size/2)+ cos(2*pi*f*deltat*(t-1));
+    ez(size/2,size/2) =  cos(2*pi*f*deltat*(t-1));
 %     1ez(10:30,30)=0;
 %     ez(30,10:30)=0;
 %     ez(10:30,20)=0;
@@ -103,7 +103,7 @@ for t=1:10000
     set(gca,'YDir','normal')
     xlabel('x');
     ylabel('y');
-    caxis([-0.7, 0.7])
+    caxis([-0.5, 0.5])
     hold on
     plot((radius*cos(c_t)+pos_x)*deltax,(radius*sin(c_t)+pos_y)*deltay,'k','LineWidth',6)
     hold off
